@@ -14,12 +14,20 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
+let app;
+let auth: any;
+let db: any;
+let storage: any;
 
-// Initialize Firebase services
-const auth = getAuth(app)
-const db = getFirestore(app)
-const storage = getStorage(app)
+if (firebaseConfig.apiKey) {
+  app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
+  auth = getAuth(app)
+  db = getFirestore(app)
+  storage = getStorage(app)
+} else {
+  // Fallback for build time or missing config
+  console.warn("Firebase API Key is missing. Skipping initialization.")
+}
 
 // Connect to emulator in development (optional)
 if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_EMULATOR === 'true') {
