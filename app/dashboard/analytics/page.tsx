@@ -12,6 +12,7 @@ import {
   PieChart, Pie, Cell, LineChart, Line, AreaChart, Area, BarChart as BarChart3
 } from 'recharts'
 import { CheckCircle2, Star, TrendingUp as TrendIcon, Award, ShieldAlert, Users, BarChart3 as BarChart3Icon } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface AnalyticsData {
   totalEmployees: number
