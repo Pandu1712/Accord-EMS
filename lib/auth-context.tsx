@@ -2,9 +2,10 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { onAuthStateChanged, User, signOut } from 'firebase/auth'
-import { auth } from './firebase'
+import { auth, isFirebaseConfigured } from './firebase'
 import { getUserRole } from './firebase-auth'
 import { getEmployeeSession, isEmployeeSessionValid } from './employee-auth'
+import { ConfigurationMissing } from '@/components/config-missing'
 
 interface AuthContextType {
   user: User | null
@@ -123,7 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider value={authValue}>
-      {children}
+      {!isFirebaseConfigured ? <ConfigurationMissing /> : children}
     </AuthContext.Provider>
   )
 }
